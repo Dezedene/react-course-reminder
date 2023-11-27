@@ -1,11 +1,13 @@
 import './App.css';
+import Todo from './components/Todo'
 
 function App() {
   return (
     <>
       <h1>My todos</h1>
-      <h2>My title</h2>
-      <button>Delete</button>
+      <Todo text="Learn React"/>
+      <Todo text="Master React"/>
+      <Todo text="Easy React"/>
     </>
   );
 }
