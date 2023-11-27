@@ -2,9 +2,11 @@ import './App.css';
 
 function App() {
   return (
-    <div>
-      Hello
-    </div>
+    <>
+      <h1>My todos</h1>
+      <h2>My title</h2>
+      <button>Delete</button>
+    </>
   );
 }
 
