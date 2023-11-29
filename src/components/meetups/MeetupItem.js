@@ -12,7 +12,7 @@ const MeetupItem = (props) => {
 
         <div className={ meetupItemStyle.content }>
             <h3>{ props.title }</h3>
-            <adress>{ props.adress }</adress>
+            <address>{ props.adress }</address>
             <p>{ props.description }</p>
         </div>
 
