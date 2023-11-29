@@ -1,4 +1,4 @@
-import MeetupList from "../components/layout/meetups/MeetupList";
+import MeetupList from "../components/meetups/MeetupList";
 
 const fakeData = [
       {
