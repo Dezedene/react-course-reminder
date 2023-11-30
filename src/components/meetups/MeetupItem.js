@@ -6,6 +6,7 @@ const MeetupItem = (props) => {
   return (
     <li className={ meetupItemStyle.item }>
       <Card>
+
         <div className={ meetupItemStyle.image }>
             <img src={ props.image } alt={ props.title }/>
         </div>
@@ -19,8 +20,8 @@ const MeetupItem = (props) => {
         <div className={ meetupItemStyle.actions }>
             <button>To favorites</button>
         </div>
+        
       </Card>
-
     </li>
   )
 }

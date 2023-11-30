@@ -1,32 +1,60 @@
+import { useState, useEffect } from 'react'
+
 import MeetupList from "../components/meetups/MeetupList";
 
-const fakeData = [
-      {
-        id: 'm1',
-        title: 'This is a first meetup',
-        image:
-          'https://images.unsplash.com/photo-1527896573815-b7dd74893deb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGdlZWt8ZW58MHx8MHx8fDA%3D',
-        address: 'Meetupstreet 5, 12345 Meetup City',
-        description:
-          'This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!',
-      },
-      {
-        id: 'm2',
-        title: 'This is a second meetup',
-        image:
-          'https://images.unsplash.com/photo-1575821116307-0b37e2ab65b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fGdlZWt8ZW58MHx8MHx8fDA%3D',
-        address: 'Meetupstreet 5, 12345 Meetup City',
-        description:
-          'This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!',
-      },
-    ];
+// if we fetch data and asign data to a state part, the state will be updated and the component
+//will render again => the fetch will be done again, and the state updated again => component
+//rendered again = infinite loop.
+
+// TO PREVENT THIS BEHAVIOUR: 
+// useEffect hook can prevent the render of the component by restrict when a code
+// part should run, so we can place the fetch as first argument of our useEffect
+// like below and make sure that we specify a second argument to tell the useEffect
+// when to be executed. After the first  load of the component, useEffect will
+// check if the second argument has changed after refresh, if not the component will
+// not be rendered again.
+
 
 const AllMeetups = () => {
+  const [ isLoading, setIsLoading ] = useState(true);
+  const [ loadedMeetups, setLoadedMeetups ] = useState();
+
+  useEffect(() => {
+    setIsLoading(true)
+    fetch('https://react-udemy-ddf77-default-rtdb.europe-west1.firebasedatabase.app/meetups.json'
+  )
+    .then((response) => {
+      return response.json();
+    } ).then ((data) => {
+      const meetups = [];
+
+      for (const key in data) {
+        const meetup = {
+          id: key,
+          ...data[key]
+        }
+        meetups.push(meetup)
+      }
+      setIsLoading(false)
+      setLoadedMeetups(meetups)
+    });
+  }, [])
+
+  
+
+    if (isLoading) {
+      return (
+        <section>
+          <p>Loading ...</p>
+        </section>
+      )
+    }
+
   return (
     <>
       <section>
-        <h1>AllMeetups page</h1>
-        <MeetupList meetups={ fakeData }/>
+        <h1>All Meetups page</h1>
+        <MeetupList meetups={ loadedMeetups }/>
       </section>
     </>
   )
