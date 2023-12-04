@@ -25,6 +25,9 @@ const FavoritesContext = createContext({
 // this way we are sure that react will execute things in the correct order, and we sure that
 // we are working on the latest version of the state snapshot
 
+// Here the context is only store in memory as we are only working with state and constant, if we want to
+// store it permanently we would use a local storage or store on a server
+
 export function FavoritesContextProvider (props) {
     const [ userFavorites , setUserFavorites ] = useState([]);
 
